@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* Retro pastel palette — milky 70s toy packaging */
+  --bg-cream: #F5F0E8;
+  --bg-warm: #EDE8DC;
+  --ink: #2D2A26;
+  --ink-soft: #5C574E;
+  --ink-muted: #9B9488;
+
+  /* Module accent colors — muted primaries */
+  --green: #7CB886;
+  --green-light: #C5E6CA;
+  --orange: #E8A856;
+  --orange-light: #F5DEB3;
+  --blue: #6BA3D6;
+  --blue-light: #BDD8F0;
+  --purple: #A78BCA;
+  --purple-light: #D8CCE8;
+  --red: #D97B7B;
+  --red-light: #F0C8C8;
+  --pink: #D4A0B9;
+  --yellow: #E5D26A;
+
+  /* Neubrutalism tokens */
+  --border-w: 2.5px;
+  --border: var(--border-w) solid var(--ink);
+  --radius: 12px;
+  --shadow: 4px 4px 0px var(--ink);
+  --shadow-sm: 2px 2px 0px var(--ink);
+  --shadow-hover: 6px 6px 0px var(--ink);
+
+  /* Typography */
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-body);
+  background: var(--bg-cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
