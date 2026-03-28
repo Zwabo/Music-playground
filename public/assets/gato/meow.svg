@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Placeholder: Meowing cat (mouth open) -->
+  <!-- Ears -->
+  <polygon points="55,70 70,30 85,70" fill="#f5a623" stroke="#2D2A26" stroke-width="3" stroke-linejoin="round"/>
+  <polygon points="115,70 130,30 145,70" fill="#f5a623" stroke="#2D2A26" stroke-width="3" stroke-linejoin="round"/>
+  <polygon points="62,68 70,40 78,68" fill="#f8c471"/>
+  <polygon points="122,68 130,40 138,68" fill="#f8c471"/>
+  <!-- Head -->
+  <ellipse cx="100" cy="90" rx="50" ry="40" fill="#f5a623" stroke="#2D2A26" stroke-width="3"/>
+  <!-- Eyes (wide open) -->
+  <ellipse cx="82" cy="83" rx="9" ry="11" fill="white" stroke="#2D2A26" stroke-width="2"/>
+  <ellipse cx="118" cy="83" rx="9" ry="11" fill="white" stroke="#2D2A26" stroke-width="2"/>
+  <ellipse cx="82" cy="83" rx="5" ry="7" fill="#2D2A26"/>
+  <ellipse cx="118" cy="83" rx="5" ry="7" fill="#2D2A26"/>
+  <!-- Nose -->
+  <polygon points="100,96 96,101 104,101" fill="#e8838a"/>
+  <!-- Open mouth -->
+  <ellipse cx="100" cy="110" rx="12" ry="8" fill="#c0392b" stroke="#2D2A26" stroke-width="2"/>
+  <ellipse cx="100" cy="107" rx="8" ry="3" fill="#e8838a"/>
+  <!-- Whiskers (splayed out) -->
+  <line x1="45" y1="90" x2="76" y2="98" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="45" y1="100" x2="76" y2="103" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="124" y1="98" x2="155" y2="90" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="124" y1="103" x2="155" y2="100" stroke="#2D2A26" stroke-width="1.5"/>
+  <!-- Body -->
+  <ellipse cx="100" cy="155" rx="40" ry="35" fill="#f5a623" stroke="#2D2A26" stroke-width="3"/>
+  <!-- Paws -->
+  <ellipse cx="80" cy="180" rx="12" ry="8" fill="#f8c471" stroke="#2D2A26" stroke-width="2"/>
+  <ellipse cx="120" cy="180" rx="12" ry="8" fill="#f8c471" stroke="#2D2A26" stroke-width="2"/>
+  <!-- Tail (up, excited) -->
+  <path d="M140,150 Q175,120 165,90" fill="none" stroke="#f5a623" stroke-width="8" stroke-linecap="round"/>
+  <path d="M140,150 Q175,120 165,90" fill="none" stroke="#2D2A26" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+</svg>

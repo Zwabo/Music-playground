@@ -9,6 +9,7 @@ import DelayModule from '@/components/modules/DelayModule.vue'
 import FilterModule from '@/components/modules/FilterModule.vue'
 import OscilloscopeModule from '@/components/modules/OscilloscopeModule.vue'
 import OutputModule from '@/components/modules/OutputModule.vue'
+import GatoModule from '@/components/modules/GatoModule.vue'
 
 const store = usePlaygroundStore()
 
@@ -64,6 +65,9 @@ onEdgesChange((changes) => {
     </template>
     <template #node-output="nodeProps">
       <OutputModule v-bind="nodeProps" />
+    </template>
+    <template #node-gato="nodeProps">
+      <GatoModule v-bind="nodeProps" />
     </template>
   </VueFlow>
 </template>

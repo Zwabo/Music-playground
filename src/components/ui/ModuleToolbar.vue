@@ -11,6 +11,7 @@ const modules: { type: ModuleType; icon: string; label: string }[] = [
   { type: 'filter', icon: '🔻', label: 'Filter' },
   { type: 'oscilloscope', icon: '📊', label: 'Scope' },
   { type: 'output', icon: '🔊', label: 'Output' },
+  { type: 'gato', icon: '🐱', label: 'Gato' },
 ]
 
 function addModule(type: ModuleType) {

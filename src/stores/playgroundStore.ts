@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import type { Connection } from '@vue-flow/core'
 import type { ModuleNode, ModuleEdge, ModuleType, TransportState, ModuleNodeData, SynthNodeData, DrumGridNodeData } from '@/types'
 import { audioEngine } from '@/audio/AudioEngine'
-import { DEFAULT_SYNTH_PATTERN, DEFAULT_DRUM_TRACKS } from '@/types/definitions'
+import { DEFAULT_SYNTH_PATTERN, DEFAULT_DRUM_TRACKS, DEFAULT_GATO_SOUND_TYPE } from '@/types/definitions'
 
 let moduleCounter = 0
 
@@ -57,6 +57,13 @@ function createDefaultData(type: ModuleType): ModuleNodeData {
         type: 'output',
         label: 'Output',
         volume: -6,
+      }
+    case 'gato':
+      return {
+        type: 'gato',
+        label: 'Gato',
+        soundType: DEFAULT_GATO_SOUND_TYPE,
+        pitch: 1,
       }
   }
 }
@@ -151,6 +158,10 @@ export const usePlaygroundStore = defineStore('playground', () => {
     audioEngine.updateDrumPattern(id, trackIndex, data.tracks[trackIndex].steps)
   }
 
+  function triggerGato(id: string) {
+    audioEngine.triggerGato(id)
+  }
+
   async function startAudio() {
     if (audioStarted.value) return
     await audioEngine.init()
@@ -223,6 +234,7 @@ export const usePlaygroundStore = defineStore('playground', () => {
     updateModuleParam,
     updateSynthPattern,
     updateDrumStep,
+    triggerGato,
     startAudio,
     togglePlay,
     setBpm,

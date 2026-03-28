@@ -1,5 +1,5 @@
 import * as Tone from 'tone'
-import type { ModuleType, SynthNodeData, DrumGridNodeData, DelayNodeData, FilterNodeData, OscilloscopeNodeData, OutputNodeData } from '@/types'
+import type { ModuleType, SynthNodeData, DrumGridNodeData, DelayNodeData, FilterNodeData, OscilloscopeNodeData, OutputNodeData, GatoNodeData, GatoSoundType } from '@/types'
 import { DEFAULT_SYNTH_PATTERN, DEFAULT_DRUM_TRACKS } from '@/types/definitions'
 
 interface AudioModuleEntry {
@@ -8,6 +8,14 @@ interface AudioModuleEntry {
   sequences?: Tone.Sequence[]
   gainOut?: Tone.Gain
   analyser?: Tone.Analyser
+  gatoVoices?: {
+    meow: Tone.Synth
+    purr: Tone.AMSynth
+    hiss: Tone.NoiseSynth
+    chirp: Tone.Synth
+  }
+  gatoSoundType?: GatoSoundType
+  gatoPitch?: number
 }
 
 class AudioEngine {
@@ -23,7 +31,7 @@ class AudioEngine {
     this._initialized = true
   }
 
-  createModule(id: string, type: ModuleType, data: SynthNodeData | DrumGridNodeData | DelayNodeData | FilterNodeData | OscilloscopeNodeData | OutputNodeData) {
+  createModule(id: string, type: ModuleType, data: SynthNodeData | DrumGridNodeData | DelayNodeData | FilterNodeData | OscilloscopeNodeData | OutputNodeData | GatoNodeData) {
     if (this.modules.has(id)) return
 
     switch (type) {
@@ -44,6 +52,9 @@ class AudioEngine {
         break
       case 'output':
         this.createOutput(id, data as OutputNodeData)
+        break
+      case 'gato':
+        this.createGato(id, data as GatoNodeData)
         break
     }
   }
@@ -139,6 +150,91 @@ class AudioEngine {
     this.modules.set(id, { type: 'oscilloscope', node: analyser, analyser, gainOut: gain })
   }
 
+  private createGato(id: string, data: GatoNodeData) {
+    const gain = new Tone.Gain(1)
+
+    // Meow: sine with frequency envelope sweep down
+    const meow = new Tone.Synth({
+      oscillator: { type: 'sine' },
+      envelope: { attack: 0.02, decay: 0.3, sustain: 0.1, release: 0.4 },
+    })
+    meow.connect(gain)
+
+    // Purr: AM synth for rumbling modulation
+    const purr = new Tone.AMSynth({
+      harmonicity: 1.5,
+      oscillator: { type: 'sine' },
+      envelope: { attack: 0.05, decay: 0.1, sustain: 0.8, release: 0.6 },
+      modulation: { type: 'sine' },
+      modulationEnvelope: { attack: 0.1, decay: 0.2, sustain: 0.5, release: 0.3 },
+    })
+    purr.connect(gain)
+
+    // Hiss: filtered white noise burst
+    const hiss = new Tone.NoiseSynth({
+      noise: { type: 'white' },
+      envelope: { attack: 0.01, decay: 0.15, sustain: 0.05, release: 0.2 },
+    })
+    const hissFilter = new Tone.Filter(3000, 'bandpass')
+    hiss.connect(hissFilter)
+    hissFilter.connect(gain)
+
+    // Chirp: sine with rapid upward pitch sweep
+    const chirp = new Tone.Synth({
+      oscillator: { type: 'sine' },
+      envelope: { attack: 0.01, decay: 0.1, sustain: 0, release: 0.15 },
+    })
+    chirp.connect(gain)
+
+    this.modules.set(id, {
+      type: 'gato',
+      node: gain,
+      gainOut: gain,
+      gatoVoices: { meow, purr, hiss, chirp },
+      gatoSoundType: data.soundType ?? 'meow',
+      gatoPitch: data.pitch ?? 1,
+    })
+  }
+
+  triggerGato(id: string) {
+    const entry = this.modules.get(id)
+    if (!entry || entry.type !== 'gato' || !entry.gatoVoices) return
+
+    const pitch = entry.gatoPitch ?? 1
+    const soundType = entry.gatoSoundType ?? 'meow'
+    const now = Tone.now()
+
+    switch (soundType) {
+      case 'meow': {
+        // Trigger at a higher pitch then let envelope handle the "meow" sweep
+        const freq = 700 * pitch
+        entry.gatoVoices.meow.triggerAttackRelease(freq, '8n', now)
+        // Schedule a pitch ramp down for the meow effect
+        entry.gatoVoices.meow.frequency.setValueAtTime(freq, now)
+        entry.gatoVoices.meow.frequency.exponentialRampToValueAtTime(freq * 0.5, now + 0.3)
+        break
+      }
+      case 'purr': {
+        const freq = 80 * pitch
+        entry.gatoVoices.purr.triggerAttackRelease(freq, '4n', now)
+        break
+      }
+      case 'hiss': {
+        entry.gatoVoices.hiss.triggerAttackRelease('8n', now)
+        break
+      }
+      case 'chirp': {
+        const startFreq = 500 * pitch
+        entry.gatoVoices.chirp.triggerAttackRelease(startFreq, '16n', now)
+        entry.gatoVoices.chirp.frequency.setValueAtTime(startFreq, now)
+        entry.gatoVoices.chirp.frequency.exponentialRampToValueAtTime(startFreq * 2.5, now + 0.08)
+        // Rapid double chirp
+        entry.gatoVoices.chirp.triggerAttackRelease(startFreq * 1.2, '16n', now + 0.12)
+        break
+      }
+    }
+  }
+
   private createOutput(id: string, data: OutputNodeData) {
     const vol = new Tone.Volume(data.volume)
     vol.toDestination()
@@ -215,6 +311,11 @@ class AudioEngine {
       case 'output': {
         const vol = entry.node as Tone.Volume
         if (param === 'volume') vol.volume.rampTo(value as number, 0.1)
+        break
+      }
+      case 'gato': {
+        if (param === 'soundType') entry.gatoSoundType = value as GatoSoundType
+        else if (param === 'pitch') entry.gatoPitch = value as number
         break
       }
     }

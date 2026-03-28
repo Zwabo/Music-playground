@@ -57,11 +57,22 @@ export const MODULE_DEFINITIONS: Record<string, ModuleDefinition> = {
     outputs: [{ id: 'audio-out', signal: 'audio', direction: 'output' }],
     params: {},
   },
+  gato: {
+    type: 'gato',
+    label: 'Gato',
+    inputs: [],
+    outputs: [{ id: 'audio-out', signal: 'audio', direction: 'output' }],
+    params: {
+      pitch: { label: 'Pitch', min: 0.5, max: 2, step: 0.1, defaultValue: 1 },
+    },
+  },
 }
 
 export const DEFAULT_SYNTH_PATTERN: (string | null)[] = [
   'C4', 'E4', 'G4', null, 'C4', null, 'E4', null,
 ]
+
+export const DEFAULT_GATO_SOUND_TYPE = 'meow' as const
 
 export const DEFAULT_DRUM_TRACKS = [
   { name: 'Kick', steps: [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false] },

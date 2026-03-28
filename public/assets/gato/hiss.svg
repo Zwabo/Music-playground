@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Placeholder: Hissing cat (arched back, angry) -->
+  <!-- Ears (flat/back) -->
+  <polygon points="55,72 65,35 80,68" fill="#f5a623" stroke="#2D2A26" stroke-width="3" stroke-linejoin="round"/>
+  <polygon points="120,68 135,35 145,72" fill="#f5a623" stroke="#2D2A26" stroke-width="3" stroke-linejoin="round"/>
+  <polygon points="61,69 65,44 75,67" fill="#f8c471"/>
+  <polygon points="125,67 135,44 139,69" fill="#f8c471"/>
+  <!-- Head -->
+  <ellipse cx="100" cy="90" rx="50" ry="40" fill="#f5a623" stroke="#2D2A26" stroke-width="3"/>
+  <!-- Angry eyes (narrowed) -->
+  <path d="M73,80 L91,84" stroke="#2D2A26" stroke-width="3" stroke-linecap="round"/>
+  <path d="M109,84 L127,80" stroke="#2D2A26" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="82" cy="87" rx="7" ry="4" fill="white" stroke="#2D2A26" stroke-width="2"/>
+  <ellipse cx="118" cy="87" rx="7" ry="4" fill="white" stroke="#2D2A26" stroke-width="2"/>
+  <ellipse cx="82" cy="87" rx="4" ry="3" fill="#2D2A26"/>
+  <ellipse cx="118" cy="87" rx="4" ry="3" fill="#2D2A26"/>
+  <!-- Nose -->
+  <polygon points="100,97 96,102 104,102" fill="#e8838a"/>
+  <!-- Hissing mouth (wide, showing teeth) -->
+  <ellipse cx="100" cy="111" rx="14" ry="9" fill="#c0392b" stroke="#2D2A26" stroke-width="2"/>
+  <!-- Teeth -->
+  <line x1="94" y1="105" x2="94" y2="110" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="106" y1="105" x2="106" y2="110" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <!-- Whiskers (bristled) -->
+  <line x1="42" y1="88" x2="74" y2="98" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="40" y1="100" x2="74" y2="104" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="42" y1="112" x2="74" y2="108" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="126" y1="98" x2="158" y2="88" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="126" y1="104" x2="160" y2="100" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="126" y1="108" x2="158" y2="112" stroke="#2D2A26" stroke-width="1.5"/>
+  <!-- Body (arched) -->
+  <ellipse cx="100" cy="155" rx="40" ry="35" fill="#f5a623" stroke="#2D2A26" stroke-width="3"/>
+  <!-- Fur standing up -->
+  <path d="M75,125 L78,118 L81,125 L84,118 L87,125" fill="none" stroke="#f5a623" stroke-width="3"/>
+  <path d="M113,125 L116,118 L119,125 L122,118 L125,125" fill="none" stroke="#f5a623" stroke-width="3"/>
+  <!-- Paws -->
+  <ellipse cx="80" cy="180" rx="12" ry="8" fill="#f8c471" stroke="#2D2A26" stroke-width="2"/>
+  <ellipse cx="120" cy="180" rx="12" ry="8" fill="#f8c471" stroke="#2D2A26" stroke-width="2"/>
+  <!-- Tail (puffed up) -->
+  <path d="M140,150 Q180,130 170,100" fill="none" stroke="#f5a623" stroke-width="12" stroke-linecap="round"/>
+  <path d="M140,150 Q180,130 170,100" fill="none" stroke="#2D2A26" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+</svg>

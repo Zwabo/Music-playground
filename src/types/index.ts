@@ -1,6 +1,6 @@
 import type { Node, Edge } from '@vue-flow/core'
 
-export type ModuleType = 'synth' | 'drumGrid' | 'delay' | 'filter' | 'oscilloscope' | 'output'
+export type ModuleType = 'synth' | 'drumGrid' | 'delay' | 'filter' | 'oscilloscope' | 'output' | 'gato'
 
 export type HandleSignalType = 'audio'
 
@@ -74,7 +74,16 @@ export interface OutputNodeData {
   volume: number
 }
 
-export type ModuleNodeData = SynthNodeData | DrumGridNodeData | DelayNodeData | FilterNodeData | OscilloscopeNodeData | OutputNodeData
+export type GatoSoundType = 'meow' | 'purr' | 'hiss' | 'chirp'
+
+export interface GatoNodeData {
+  type: 'gato'
+  label: string
+  soundType: GatoSoundType
+  pitch: number
+}
+
+export type ModuleNodeData = SynthNodeData | DrumGridNodeData | DelayNodeData | FilterNodeData | OscilloscopeNodeData | OutputNodeData | GatoNodeData
 
 export type ModuleNode = Node<ModuleNodeData>
 export type ModuleEdge = Edge

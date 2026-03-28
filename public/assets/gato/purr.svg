@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Placeholder: Purring cat (eyes closed, happy) -->
+  <!-- Ears -->
+  <polygon points="55,70 70,30 85,70" fill="#f5a623" stroke="#2D2A26" stroke-width="3" stroke-linejoin="round"/>
+  <polygon points="115,70 130,30 145,70" fill="#f5a623" stroke="#2D2A26" stroke-width="3" stroke-linejoin="round"/>
+  <polygon points="62,68 70,40 78,68" fill="#f8c471"/>
+  <polygon points="122,68 130,40 138,68" fill="#f8c471"/>
+  <!-- Head -->
+  <ellipse cx="100" cy="90" rx="50" ry="40" fill="#f5a623" stroke="#2D2A26" stroke-width="3"/>
+  <!-- Happy closed eyes (curved lines) -->
+  <path d="M74,85 Q82,78 90,85" fill="none" stroke="#2D2A26" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M110,85 Q118,78 126,85" fill="none" stroke="#2D2A26" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Blush -->
+  <ellipse cx="72" cy="95" rx="8" ry="5" fill="#f8c471" opacity="0.6"/>
+  <ellipse cx="128" cy="95" rx="8" ry="5" fill="#f8c471" opacity="0.6"/>
+  <!-- Nose -->
+  <polygon points="100,96 96,102 104,102" fill="#e8838a"/>
+  <!-- Content smile -->
+  <path d="M92,104 Q100,112 108,104" fill="none" stroke="#2D2A26" stroke-width="2" stroke-linecap="round"/>
+  <!-- Whiskers -->
+  <line x1="50" y1="95" x2="78" y2="98" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="50" y1="102" x2="78" y2="102" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="122" y1="98" x2="150" y2="95" stroke="#2D2A26" stroke-width="1.5"/>
+  <line x1="122" y1="102" x2="150" y2="102" stroke="#2D2A26" stroke-width="1.5"/>
+  <!-- Body (slightly rounder, cozy) -->
+  <ellipse cx="100" cy="155" rx="42" ry="36" fill="#f5a623" stroke="#2D2A26" stroke-width="3"/>
+  <!-- Paws (tucked in) -->
+  <ellipse cx="80" cy="180" rx="12" ry="8" fill="#f8c471" stroke="#2D2A26" stroke-width="2"/>
+  <ellipse cx="120" cy="180" rx="12" ry="8" fill="#f8c471" stroke="#2D2A26" stroke-width="2"/>
+  <!-- Tail (wrapped around) -->
+  <path d="M140,160 Q160,170 145,180 Q130,188 115,185" fill="none" stroke="#f5a623" stroke-width="8" stroke-linecap="round"/>
+  <path d="M140,160 Q160,170 145,180 Q130,188 115,185" fill="none" stroke="#2D2A26" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+  <!-- Purr lines -->
+  <text x="145" y="100" font-size="14" fill="#2D2A26" opacity="0.4" font-family="sans-serif">♪</text>
+  <text x="155" y="88" font-size="10" fill="#2D2A26" opacity="0.3" font-family="sans-serif">♪</text>
+</svg>
