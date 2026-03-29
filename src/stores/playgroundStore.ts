@@ -144,7 +144,7 @@ export const usePlaygroundStore = defineStore('playground', () => {
 
   function updateSynthPattern(id: string, pattern: (string | null)[]) {
     const node = nodes.value.find((n) => n.id === id)
-    if (!node || node.data.type !== 'synth') return
+    if (!node || !node.data || node.data.type !== 'synth') return
 
     ;(node.data as SynthNodeData).pattern = pattern
     audioEngine.updateSynthPattern(id, pattern)
@@ -152,7 +152,7 @@ export const usePlaygroundStore = defineStore('playground', () => {
 
   function updateDrumStep(id: string, trackIndex: number, stepIndex: number, value: boolean) {
     const node = nodes.value.find((n) => n.id === id)
-    if (!node || node.data.type !== 'drumGrid') return
+    if (!node || !node.data || node.data.type !== 'drumGrid') return
 
     const data = node.data as DrumGridNodeData
     data.tracks[trackIndex].steps[stepIndex] = value
@@ -203,6 +203,7 @@ export const usePlaygroundStore = defineStore('playground', () => {
 
     // Create audio nodes for all existing modules
     nodes.value.forEach((node) => {
+      if (!node.data) return
       audioEngine.createModule(node.id, node.data.type, node.data)
     })
 
@@ -246,6 +247,7 @@ export const usePlaygroundStore = defineStore('playground', () => {
 
     if (audioStarted.value) {
       nodes.value.forEach((node) => {
+        if (!node.data) return
         audioEngine.createModule(node.id, node.data.type, node.data)
       })
       edges.value.forEach((edge) => {

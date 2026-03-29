@@ -1,5 +1,3 @@
-import type { Node, Edge } from '@vue-flow/core'
-
 export type ModuleType = 'synth' | 'drumGrid' | 'delay' | 'filter' | 'oscilloscope' | 'output' | 'gato'
 
 export type HandleSignalType = 'audio'
@@ -85,8 +83,26 @@ export interface GatoNodeData {
 
 export type ModuleNodeData = SynthNodeData | DrumGridNodeData | DelayNodeData | FilterNodeData | OscilloscopeNodeData | OutputNodeData | GatoNodeData
 
-export type ModuleNode = Node<ModuleNodeData>
-export type ModuleEdge = Edge
+export interface ModuleNode {
+  id: string
+  type?: string
+  position: { x: number; y: number }
+  data: ModuleNodeData
+  label?: string
+  draggable?: boolean
+  selectable?: boolean
+  hidden?: boolean
+  [key: string]: unknown
+}
+export interface ModuleEdge {
+  id: string
+  source: string
+  target: string
+  sourceHandle?: string | null
+  targetHandle?: string | null
+  animated?: boolean
+  [key: string]: unknown
+}
 
 export interface TransportState {
   bpm: number

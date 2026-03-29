@@ -65,7 +65,7 @@ function changeStepNote(index: number, e: Event) {
             :min="p === 'sustain' ? 0 : 0.01"
             :max="p === 'sustain' ? 1 : p === 'release' ? 4 : 2"
             :step="0.01"
-            :value="(data as Record<string, unknown>)[p]"
+            :value="(data as unknown as Record<string, unknown>)[p]"
             @input="onParamChange(p, $event)"
             class="adsr-slider nodrag nopan"
           />

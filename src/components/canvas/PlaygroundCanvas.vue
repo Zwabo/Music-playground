@@ -53,8 +53,9 @@ onEdgesChange((changes) => {
 })
 
 // Context menu handlers
-function onNodeContextMenu({ event, node }: { event: MouseEvent; node: { id: string } }) {
+function onNodeContextMenu({ event, node }: { event: MouseEvent | TouchEvent; node: { id: string } }) {
   event.preventDefault()
+  if (!(event instanceof MouseEvent)) return
   closeContextMenu()
   const items: ContextMenuItem[] = [
     { label: 'Copy', icon: '📋', shortcut: '⌘C', action: () => store.copyModule(node.id) },
@@ -65,8 +66,9 @@ function onNodeContextMenu({ event, node }: { event: MouseEvent; node: { id: str
   contextMenu.value = { x: event.clientX, y: event.clientY, items }
 }
 
-function onEdgeContextMenu({ event, edge }: { event: MouseEvent; edge: { id: string } }) {
+function onEdgeContextMenu({ event, edge }: { event: MouseEvent | TouchEvent; edge: { id: string } }) {
   event.preventDefault()
+  if (!(event instanceof MouseEvent)) return
   closeContextMenu()
   const items: ContextMenuItem[] = [
     { label: 'Delete Connection', icon: '🗑️', shortcut: '⌫', action: () => store.disconnectModules(edge.id) },
