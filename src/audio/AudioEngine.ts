@@ -8,6 +8,7 @@ interface AudioModuleEntry {
   sequences?: Tone.Sequence[]
   gainOut?: Tone.Gain
   analyser?: Tone.Analyser
+  drumVoices?: Tone.ToneAudioNode[]
   gatoVoices?: {
     meow: Tone.Synth
     purr: Tone.AMSynth
@@ -91,7 +92,7 @@ class AudioEngine {
   private createDrumGrid(id: string, data: DrumGridNodeData) {
     const kick = new Tone.MembraneSynth({ pitchDecay: 0.05, octaves: 4, envelope: { attack: 0.001, decay: 0.4, sustain: 0.01, release: 0.4 } })
     const snare = new Tone.NoiseSynth({ noise: { type: 'white' }, envelope: { attack: 0.001, decay: 0.2, sustain: 0 } })
-    const hihat = new Tone.MetalSynth({ frequency: 200, envelope: { attack: 0.001, decay: 0.1, release: 0.01 }, harmonicity: 5.1, modulationIndex: 32, resonance: 4000, octaves: 1.5 })
+    const hihat = new Tone.MetalSynth({ envelope: { attack: 0.001, decay: 0.1, release: 0.01 }, harmonicity: 5.1, modulationIndex: 32, resonance: 4000, octaves: 1.5 })
     const clap = new Tone.NoiseSynth({ noise: { type: 'pink' }, envelope: { attack: 0.001, decay: 0.15, sustain: 0 } })
 
     const gain = new Tone.Gain(1)
@@ -121,7 +122,7 @@ class AudioEngine {
       return seq
     })
 
-    this.modules.set(id, { type: 'drumGrid', node: gain, sequences, gainOut: gain })
+    this.modules.set(id, { type: 'drumGrid', node: gain, sequences, gainOut: gain, drumVoices: voices })
   }
 
   private createDelay(id: string, data: DelayNodeData) {
@@ -345,7 +346,7 @@ class AudioEngine {
 
   updateDrumPattern(id: string, trackIndex: number, steps: boolean[]) {
     const entry = this.modules.get(id)
-    if (!entry || entry.type !== 'drumGrid' || !entry.sequences) return
+    if (!entry || entry.type !== 'drumGrid' || !entry.sequences || !entry.drumVoices) return
 
     const oldSeq = entry.sequences[trackIndex]
     if (!oldSeq) return
@@ -353,12 +354,14 @@ class AudioEngine {
     oldSeq.stop()
     oldSeq.dispose()
 
+    const voices = entry.drumVoices
     const seq = new Tone.Sequence(
       (time, step) => {
         if (step) {
-          // Re-trigger the corresponding voice (stored in the gain's inputs)
-          // We need a reference, so we store voices separately... for now trigger based on index
-          // This is handled by keeping the original voice connections alive
+          if (trackIndex === 0) (voices[0] as Tone.MembraneSynth).triggerAttackRelease('C1', '8n', time)
+          else if (trackIndex === 1) (voices[1] as Tone.NoiseSynth).triggerAttackRelease('8n', time)
+          else if (trackIndex === 2) (voices[2] as Tone.MetalSynth).triggerAttackRelease('32n', time, 0.3)
+          else if (trackIndex === 3) (voices[3] as Tone.NoiseSynth).triggerAttackRelease('16n', time)
         }
       },
       steps,

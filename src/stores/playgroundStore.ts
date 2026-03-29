@@ -73,6 +73,7 @@ export const usePlaygroundStore = defineStore('playground', () => {
   const edges = ref<ModuleEdge[]>([])
   const transport = ref<TransportState>({ bpm: 120, playing: false })
   const audioStarted = ref(false)
+  const clipboard = ref<{ data: ModuleNodeData; type: ModuleType } | null>(null)
 
   const isPlaying = computed(() => transport.value.playing)
 
@@ -162,6 +163,39 @@ export const usePlaygroundStore = defineStore('playground', () => {
     audioEngine.triggerGato(id)
   }
 
+  function copyModule(id: string) {
+    const node = nodes.value.find((n) => n.id === id)
+    if (!node || !node.data) return
+    clipboard.value = {
+      data: JSON.parse(JSON.stringify(node.data)),
+      type: node.data.type as ModuleType,
+    }
+  }
+
+  function cutModule(id: string) {
+    copyModule(id)
+    removeModule(id)
+  }
+
+  function pasteModule(position: { x: number; y: number }): string | null {
+    if (!clipboard.value) return null
+    const id = nextId()
+    const data: ModuleNodeData = JSON.parse(JSON.stringify(clipboard.value.data))
+
+    nodes.value.push({
+      id,
+      type: clipboard.value.type,
+      position: { ...position },
+      data,
+    })
+
+    if (audioStarted.value) {
+      audioEngine.createModule(id, clipboard.value.type, data)
+    }
+
+    return id
+  }
+
   async function startAudio() {
     if (audioStarted.value) return
     await audioEngine.init()
@@ -227,6 +261,7 @@ export const usePlaygroundStore = defineStore('playground', () => {
     transport,
     audioStarted,
     isPlaying,
+    clipboard,
     addModule,
     removeModule,
     connectModules,
@@ -235,6 +270,9 @@ export const usePlaygroundStore = defineStore('playground', () => {
     updateSynthPattern,
     updateDrumStep,
     triggerGato,
+    copyModule,
+    cutModule,
+    pasteModule,
     startAudio,
     togglePlay,
     setBpm,
