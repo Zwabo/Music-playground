@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { Handle, Position } from '@vue-flow/core'
 import BaseModule from './BaseModule.vue'
+import ModuleSelect from '@/components/ui/ModuleSelect.vue'
 import { usePlaygroundStore } from '@/stores/playgroundStore'
 import type { SynthNodeData } from '@/types'
 
 const NOTES = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']
-const WAVEFORMS = ['sine', 'square', 'sawtooth', 'triangle'] as const
+
+const waveformOptions = [
+  { value: 'sine', label: 'sine' },
+  { value: 'square', label: 'square' },
+  { value: 'sawtooth', label: 'sawtooth' },
+  { value: 'triangle', label: 'triangle' },
+]
 
 const props = defineProps<{
   id: string
@@ -14,8 +21,8 @@ const props = defineProps<{
 
 const store = usePlaygroundStore()
 
-function onWaveformChange(e: Event) {
-  store.updateModuleParam(props.id, 'waveform', (e.target as HTMLSelectElement).value)
+function onWaveformChange(value: string) {
+  store.updateModuleParam(props.id, 'waveform', value)
 }
 
 function onParamChange(param: string, e: Event) {
@@ -43,11 +50,12 @@ function changeStepNote(index: number, e: Event) {
   <Handle type="source" :position="Position.Right" id="audio-out" />
   <BaseModule :id="id" :label="'🎹 ' + data.label" color="var(--green-light)">
     <div class="synth-controls">
-      <div class="waveform-row">
-        <select :value="data.waveform" @change="onWaveformChange" class="waveform-select nodrag nopan">
-          <option v-for="w in WAVEFORMS" :key="w" :value="w">{{ w }}</option>
-        </select>
-      </div>
+      <ModuleSelect
+        :model-value="data.waveform"
+        :options="waveformOptions"
+        color="var(--green)"
+        @update:model-value="onWaveformChange"
+      />
 
       <div class="adsr-row">
         <div class="adsr-knob" v-for="p in ['attack', 'decay', 'sustain', 'release']" :key="p">
@@ -94,24 +102,6 @@ function changeStepNote(index: number, e: Event) {
   flex-direction: column;
   gap: 8px;
   min-width: 210px;
-}
-
-.waveform-row {
-  display: flex;
-}
-
-.waveform-select {
-  width: 100%;
-  background: var(--bg-warm);
-  color: var(--ink);
-  border: var(--border);
-  border-radius: 6px;
-  padding: 4px 8px;
-  font-size: 12px;
-  font-family: var(--font-body);
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
 }
 
 .adsr-row {

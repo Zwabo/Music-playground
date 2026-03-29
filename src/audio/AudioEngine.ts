@@ -92,13 +92,15 @@ class AudioEngine {
   private createDrumGrid(id: string, data: DrumGridNodeData) {
     const kick = new Tone.MembraneSynth({ pitchDecay: 0.05, octaves: 4, envelope: { attack: 0.001, decay: 0.4, sustain: 0.01, release: 0.4 } })
     const snare = new Tone.NoiseSynth({ noise: { type: 'white' }, envelope: { attack: 0.001, decay: 0.2, sustain: 0 } })
-    const hihat = new Tone.MetalSynth({ envelope: { attack: 0.001, decay: 0.1, release: 0.01 }, harmonicity: 5.1, modulationIndex: 32, resonance: 4000, octaves: 1.5 })
+    const hihat = new Tone.NoiseSynth({ noise: { type: 'white' }, envelope: { attack: 0.001, decay: 0.08, sustain: 0, release: 0.03 } })
+    const hihatFilter = new Tone.Filter(8000, 'highpass')
     const clap = new Tone.NoiseSynth({ noise: { type: 'pink' }, envelope: { attack: 0.001, decay: 0.15, sustain: 0 } })
 
     const gain = new Tone.Gain(1)
     kick.connect(gain)
     snare.connect(gain)
-    hihat.connect(gain)
+    hihat.connect(hihatFilter)
+    hihatFilter.connect(gain)
     clap.connect(gain)
 
     const voices = [kick, snare, hihat, clap]
@@ -110,7 +112,7 @@ class AudioEngine {
           if (step) {
             if (i === 0) (voices[0] as Tone.MembraneSynth).triggerAttackRelease('C1', '8n', time)
             else if (i === 1) (voices[1] as Tone.NoiseSynth).triggerAttackRelease('8n', time)
-            else if (i === 2) (voices[2] as Tone.MetalSynth).triggerAttackRelease('32n', time, 0.3)
+            else if (i === 2) (voices[2] as Tone.NoiseSynth).triggerAttackRelease('16n', time)
             else if (i === 3) (voices[3] as Tone.NoiseSynth).triggerAttackRelease('16n', time)
           }
         },
@@ -360,7 +362,7 @@ class AudioEngine {
         if (step) {
           if (trackIndex === 0) (voices[0] as Tone.MembraneSynth).triggerAttackRelease('C1', '8n', time)
           else if (trackIndex === 1) (voices[1] as Tone.NoiseSynth).triggerAttackRelease('8n', time)
-          else if (trackIndex === 2) (voices[2] as Tone.MetalSynth).triggerAttackRelease('32n', time, 0.3)
+          else if (trackIndex === 2) (voices[2] as Tone.NoiseSynth).triggerAttackRelease('16n', time)
           else if (trackIndex === 3) (voices[3] as Tone.NoiseSynth).triggerAttackRelease('16n', time)
         }
       },

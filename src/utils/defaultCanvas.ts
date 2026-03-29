@@ -7,7 +7,7 @@ export function createDefaultCanvas(): CanvasState {
       {
         id: 'module-1',
         type: 'drumGrid',
-        position: { x: 50, y: 80 },
+        position: { x: 0, y: 60 },
         data: {
           type: 'drumGrid',
           label: 'Drum Grid',
@@ -17,7 +17,7 @@ export function createDefaultCanvas(): CanvasState {
       {
         id: 'module-2',
         type: 'synth',
-        position: { x: 50, y: 320 },
+        position: { x: 0, y: 280 },
         data: {
           type: 'synth',
           label: 'Synth',
@@ -31,20 +31,8 @@ export function createDefaultCanvas(): CanvasState {
       },
       {
         id: 'module-3',
-        type: 'delay',
-        position: { x: 420, y: 320 },
-        data: {
-          type: 'delay',
-          label: 'Delay',
-          delayTime: 0.3,
-          feedback: 0.4,
-          wet: 0.5,
-        },
-      },
-      {
-        id: 'module-4',
         type: 'output',
-        position: { x: 700, y: 200 },
+        position: { x: 800, y: 170 },
         data: {
           type: 'output',
           label: 'Output',
@@ -54,9 +42,9 @@ export function createDefaultCanvas(): CanvasState {
     ],
     edges: [
       {
-        id: 'e-module-1-module-4',
+        id: 'e-module-1-module-3',
         source: 'module-1',
-        target: 'module-4',
+        target: 'module-3',
         sourceHandle: 'audio-out',
         targetHandle: 'audio-in',
         animated: true,
@@ -65,14 +53,6 @@ export function createDefaultCanvas(): CanvasState {
         id: 'e-module-2-module-3',
         source: 'module-2',
         target: 'module-3',
-        sourceHandle: 'audio-out',
-        targetHandle: 'audio-in',
-        animated: true,
-      },
-      {
-        id: 'e-module-3-module-4',
-        source: 'module-3',
-        target: 'module-4',
         sourceHandle: 'audio-out',
         targetHandle: 'audio-in',
         animated: true,
