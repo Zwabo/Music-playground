@@ -1,4 +1,4 @@
-# 🎛️ Music Playground
+# Pawdio - The Music Playground 🎛️
 
 A browser-based, infinite musical sandbox where you drag, drop, and connect musical modules on a freeform canvas. Music emerges from interaction, not timelines.
 

@@ -13,7 +13,7 @@ async function start() {
     <div v-if="!store.audioStarted" class="audio-gate" @click="start">
       <div class="gate-content">
         <div class="gate-icon">🎵</div>
-        <h2 class="gate-title">Music Playground</h2>
+        <h2 class="gate-title">Pawdio</h2>
         <p class="gate-subtitle">drag, connect, make weird sounds</p>
         <p class="gate-text">Click to start ▶</p>
       </div>
